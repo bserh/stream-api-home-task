@@ -6,12 +6,15 @@ import com.pb.javatraining.model.Lesson;
 import com.pb.javatraining.model.Student;
 import com.pb.javatraining.service.StatementService;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Application {
 
     public static void main(String[] args) {
+
 
         StatementService service = new StatementService();
 
@@ -28,7 +31,7 @@ public class Application {
 
         Collection<String> groupTitlesWhereStudentsAreMen = service.getGroupTitlesWhereStudentsAreMen();
 
-        Branch branch = null; // TODO initialize your branch and pass it to #getStudentFullNamesFromSpecifiedBranch in afterwards
+        Branch branch = new Branch("IKITN"); // TODO initialize your branch and pass it to #getStudentFullNamesFromSpecifiedBranch in afterwards
         Collection<String> studentFullNamesFromSpecifiedBranch = service.getStudentFullNamesFromSpecifiedBranch(branch);
 
         Collection<Student> studentsSuitableForArmy = service.getStudentsSuitableForArmy();
