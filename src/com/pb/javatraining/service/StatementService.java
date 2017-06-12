@@ -42,6 +42,7 @@ public class StatementService {
         //   ??  return data.stream().collect(Collectors.toMap();
         return emptyMap();
     }
+    
 
     public Collection<String> getGroupTitlesWhereStudentsAreMen() {
 
