@@ -40,6 +40,7 @@ public class StatementService {
 
     public Map<Group, Integer> getAverageMarksWithinGroups() {
         //   ??  return data.stream().collect(Collectors.toMap();
+        return emptyMap();
     }
 
     public Collection<String> getGroupTitlesWhereStudentsAreMen() {
