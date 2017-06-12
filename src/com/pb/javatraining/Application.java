@@ -19,6 +19,7 @@ public class Application {
         Collection<Lesson> allLessons = service.getAllLessons();
 
         int amountOfGroupsWhereBadStudents = service.getAmountOfGroupsWhereBadStudents();
+        System.out.println(amountOfGroupsWhereBadStudents);
 
         Map<Group, Integer> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
 

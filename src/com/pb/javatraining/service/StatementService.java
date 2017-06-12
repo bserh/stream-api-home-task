@@ -6,7 +6,9 @@ import com.pb.javatraining.model.Lesson;
 import com.pb.javatraining.model.Student;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
@@ -15,24 +17,29 @@ import static java.util.Collections.emptySet;
 public class StatementService {
 
     private final Collection<Branch> data;
+    private List<Group> groups;
 
     public StatementService() {
         DummyDataService dataService = new DummyDataService();
         this.data = dataService.getDummyData();
+
+        this.groups=data.stream()
+                .map(Branch::getGroups)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     public int getAmountOfGroupsWhereBadStudents() {
 
-        // TODO
-
-        return 0;
+        return (int) groups.stream()
+                .filter(group -> group.getStudents().stream()
+                                        .anyMatch(student -> student.getMarksByLessons().entrySet().stream()
+                                                                                        .anyMatch(x -> x.getValue()<60)))
+                .count();
     }
 
     public Map<Group, Integer> getAverageMarksWithinGroups() {
-
-        // TODO
-
-        return emptyMap();
+        //   ??  return data.stream().collect(Collectors.toMap();
     }
 
     public Collection<String> getGroupTitlesWhereStudentsAreMen() {
