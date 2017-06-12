@@ -23,7 +23,7 @@ public class Application {
 
         int amountOfGroupsWhereBadStudents = service.getAmountOfGroupsWhereBadStudents();
 
-        Map<Group, Integer> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
+        Map<Group, Double> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
 
         Map<Lesson, Double> averageMarksWithinLessons = service.getAverageMarksWithinLessons();
 

@@ -48,11 +48,17 @@ public class StatementService {
                 .count();
     }
 
-    public Map<Group, Integer> getAverageMarksWithinGroups() {
 
-        // TODO
 
-        return emptyMap();
+    public Map<Group, Double> getAverageMarksWithinGroups() {
+        return groups.stream().collect(Collectors.toMap(group -> group,
+                group ->  group.getStudents().stream()
+                        .mapToDouble(student -> student.getMarksByLessons().entrySet().stream()
+                                .mapToDouble(Map.Entry::getValue)
+                                .average()
+                                .getAsDouble())
+                        .average()
+                        .getAsDouble()));
     }
 
     public Collection<String> getGroupTitlesWhereStudentsAreMen() {
@@ -64,17 +70,22 @@ public class StatementService {
     }
 
     public Collection<String> getStudentFullNamesFromSpecifiedBranch(Branch branch) {
-
-        // TODO
-
-        return emptyList();
+        return data.stream()
+                .filter(b -> b.equals(branch))
+                .flatMap(b -> b.getGroups().stream())
+                .flatMap(group -> group.getStudents().stream())
+                .map(student -> student.getName() + " " + student.getSurname())
+                .collect(Collectors.toList());
     }
 
     public Map<Lesson, Double> getAverageMarksWithinLessons() {
-
-        // TODO
-
-        return emptyMap();
+        return getAllLessons().stream()
+                .collect(Collectors.toMap(lesson -> lesson, lesson -> getAllStudents().stream()
+                        .flatMap(student -> student.getMarksByLessons().entrySet().stream())
+                        .filter(l -> l.getKey().equals(lesson))
+                        .mapToDouble(Map.Entry::getValue)
+                        .average()
+                        .getAsDouble()));
     }
 
     public Collection<Student> getStudentsSuitableForArmy() {
@@ -84,10 +95,11 @@ public class StatementService {
     }
 
     public Collection<Lesson> getAllLessons() {
-
-        // TODO
-        
-        return emptySet();
+        return   getAllStudents().stream()
+                .flatMap(student -> student.getMarksByLessons().entrySet().stream())
+                .map(Map.Entry::getKey)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public Collection<Group> getGroupsWhereAtLeastTwoExcelentStudents() {
