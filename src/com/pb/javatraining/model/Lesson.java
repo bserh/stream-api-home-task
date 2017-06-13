@@ -38,13 +38,6 @@ public class Lesson {
     }
 
     @Override
-    public String toString() {
-        return "Lesson{" +
-                "title='" + title + '\'' +
-                '}';
-    }
-
-    @Override
     public int hashCode() {
         int result;
         long temp;
@@ -52,7 +45,12 @@ public class Lesson {
         temp = Double.doubleToLongBits(credits);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "title='" + title + '\'' +
+                '}';
     }
 }
