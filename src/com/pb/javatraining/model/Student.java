@@ -63,9 +63,40 @@ public class Student {
     }
 
     public Double avarageMark () {
-        return marksByLessons.entrySet().stream().mapToDouble(x -> x.getValue()).average().getAsDouble();
+        return marksByLessons.entrySet().stream().mapToDouble(Map.Entry::getValue).average().getAsDouble();
     }
 
-    // TODO override equals
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", state=" + state +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (age != student.age) return false;
+        if (name != null ? !name.equals(student.name) : student.name != null) return false;
+        if (surname != null ? !surname.equals(student.surname) : student.surname != null) return false;
+        if (state != student.state) return false;
+        return marksByLessons != null ? marksByLessons.equals(student.marksByLessons) : student.marksByLessons == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (marksByLessons != null ? marksByLessons.hashCode() : 0);
+        return result;
+    }
 }

@@ -43,7 +43,7 @@ public class Group {
         Collections.addAll(this.students, students);
     }
 
-    public Integer avarageMarks () {
+    public Integer avarageMarksInGroup() {
         return (int) students.stream().mapToDouble(Student::avarageMark).average().getAsDouble();
     }
 
@@ -53,9 +53,27 @@ public class Group {
                 "title='" + title + '\'' +
                 ", groupNumber=" + groupNumber +
                 ", students=" + students +
-                "}\n";
+                "}";
     }
 
-    // TODO override equals
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Group group = (Group) o;
+
+        if (groupNumber != group.groupNumber) return false;
+        if (title != null ? !title.equals(group.title) : group.title != null) return false;
+        return students != null ? students.equals(group.students) : group.students == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + groupNumber;
+        result = 31 * result + (students != null ? students.hashCode() : 0);
+        return result;
+    }
 }

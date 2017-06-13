@@ -33,9 +33,20 @@ public class Branch {
         this.groups = groups;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-// TODO override equals
+        Branch branch = (Branch) o;
 
+        return title.equals(branch.title);
+    }
 
-
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (groups != null ? groups.hashCode() : 0);
+        return result;
+    }
 }
