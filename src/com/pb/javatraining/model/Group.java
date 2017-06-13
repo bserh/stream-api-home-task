@@ -6,9 +6,9 @@ import java.util.Collections;
 
 public class Group {
 
-    public String title;
-    public int groupNumber;
-    public Collection<Student> students = new ArrayList<>();
+    private String title;
+    private int groupNumber;
+    private Collection<Student> students = new ArrayList<>();
 
     public Group(String title, int groupNumber) {
         this.title = title;
@@ -41,10 +41,6 @@ public class Group {
 
     public void addStudent(Student [] students) {
         Collections.addAll(this.students, students);
-    }
-
-    public Integer avarageMarksInGroup() {
-        return (int) students.stream().mapToDouble(Student::avarageMark).average().getAsDouble();
     }
 
     @Override

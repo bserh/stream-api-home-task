@@ -31,8 +31,9 @@ public class StatementService {
                 .count();
     }
 
-    public Map<Group, Integer> getAverageMarksWithinGroups() {
-        return groups.stream().collect(Collectors.toMap(group -> group,Group::avarageMarksInGroup));
+    public Map<Group, Double> getAverageMarksWithinGroups() {
+        return groups.stream().collect(Collectors.toMap(group -> group, group -> group.getStudents().stream()
+                                                .mapToDouble(Student::avarageMark).average().getAsDouble()));
     }
 
 

@@ -2,8 +2,8 @@ package com.pb.javatraining.model;
 
 public class Lesson {
 
-    public String title;
-    public double credits;
+    private String title;
+    private double credits;
 
     public Lesson(String title, double credits) {
         this.title = title;

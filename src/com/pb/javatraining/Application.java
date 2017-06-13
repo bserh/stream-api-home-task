@@ -26,7 +26,7 @@ public class Application {
         System.out.println(amountOfGroupsWhereBadStudents);
 
         System.out.println("\n <<< Average marks within groups >>>");
-        Map<Group, Integer> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
+        Map<Group, Double> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
         averageMarksWithinGroups.forEach((g,m) -> System.out.println(g.getTitle()+" "+m));
 
         System.out.println("\n <<< Average marks within lessons >>>");

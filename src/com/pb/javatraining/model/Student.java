@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class Student {
 
-    public String name;
-    public String surname;
-    public int age;
-    public State state;
-    public Map<Lesson, Double> marksByLessons = new HashMap<>();
+    private String name;
+    private String surname;
+    private int age;
+    private State state;
+    private Map<Lesson, Double> marksByLessons = new HashMap<>();
 
     public Student(String name, String surname, int age, State state) {
         this.name = name;

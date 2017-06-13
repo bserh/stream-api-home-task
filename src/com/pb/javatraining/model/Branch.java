@@ -6,8 +6,8 @@ import java.util.Collections;
 
 public class Branch {
 
-    public String title;
-    public Collection<Group> groups = new ArrayList<>();
+    private String title;
+    private Collection<Group> groups = new ArrayList<>();
 
     public Branch(String title) {
         this.title = title;
