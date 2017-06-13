@@ -39,18 +39,6 @@ public class Group {
         this.students = students;
     }
 
-    public Integer averageMarkOfStudents() {
-        students.stream()
-                .mapToDouble(Student::averageMark)
-                .average()
-                .orElseThrow(() -> new RuntimeException("not averange marks"));
-
-        return (int) students
-                        .stream()
-                        .mapToDouble(Student::averageMark)
-                        .average().getAsDouble();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
