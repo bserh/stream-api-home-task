@@ -25,19 +25,43 @@ public class StatementService {
         int countGroupsWithBadStudents = 0;
 
         for (Group group : groups) {
-            if (group
-                    .getStudents()
-                    .stream()
-                    .filter(student -> student.averageMark() < 50)
-                    .count() > 0) {
-                countGroupsWithBadStudents++;
-            }
+          if (group.getStudents().stream()
+                    .filter(student -> student.getMarksByLessons()
+                            .entrySet()
+                            .stream()
+                            .mapToDouble(Entry::getValue)
+                            .average()
+                            .orElse(0d) < 50)
+                  .count() > 0) {
+
+              countGroupsWithBadStudents++;
+          }
+
         }
         return countGroupsWithBadStudents;
     }
 
     public Map<Group, Integer> getAverageMarksWithinGroups() {
-        return groups.stream().collect(Collectors.toMap(group -> group, Group::averageMarkOfStudents));
+        Map<Group, Double> groupDoubleMap = groups
+                .stream()
+                .collect(Collectors.
+                        toMap(group -> group,
+                                group -> group.getStudents()
+                                        .stream().map(student -> student.getMarksByLessons().entrySet()
+                                                .stream()
+                                                .mapToDouble(Entry::getValue)
+                                                .average()
+                                                .orElse(new Double(0)))
+                                        .mapToInt(Double::intValue)
+                                        .average().orElse(new Double(0))
+                        ));
+
+
+        return groupDoubleMap.entrySet()
+                .stream().sorted(Comparator.comparing(Entry::getValue))
+                .collect(Collectors.toMap(Entry::getKey,
+                                        i -> i.getValue().intValue()
+                ));
     }
 
     public Collection<String> getGroupTitlesWhereStudentsAreMen() {
@@ -70,7 +94,6 @@ public class StatementService {
     }
 
     public Map<Lesson, Double> getAverageMarksWithinLessons() {
-        // Collectors.toList & print
        return groups.stream()
                 .map(Group::getStudents)
                 .flatMap(Collection::stream)
@@ -104,13 +127,28 @@ public class StatementService {
                 .collect(Collectors.toList());
     }
 
-    public Collection<Group> getGroupsWhereAtLeastTwoExcelentStudents() {
+    public Collection<Group> getGroupsWhereAtLeastTwoExcellentStudents() {
         groups.stream()
-                .filter(group -> group.getStudents().stream().filter(student -> student.averageMark() > 90).count() >= 2)
-                .findAny().orElseThrow(()-> new RuntimeException("Not groups with excellent students"));
-        return groups.stream()
-                .filter(group -> group.getStudents().stream().filter(student -> student.averageMark() > 90).count() >= 2)
-                .collect(Collectors.toList());
+                .filter(group -> group.getStudents()
+                        .stream()
+                        .filter(student -> student.getMarksByLessons()
+                                .entrySet()
+                                .stream()
+                                .mapToDouble(Entry::getValue)
+                                .average()
+                                .orElse(0d) > 90).count() >= 2)
+                .findAny()
+                .orElseThrow(()-> new RuntimeException("Not groups with excellent students"));
 
+        return groups.stream()
+                .filter(group -> group.getStudents()
+                        .stream()
+                        .filter(student -> student.getMarksByLessons()
+                                .entrySet()
+                                .stream()
+                                .mapToDouble(Entry::getValue)
+                                .average()
+                                .orElse(0d) > 90).count() >= 2)
+                .collect(Collectors.toList());
     }
 }
