@@ -8,12 +8,11 @@ public class Group {
 
     private String title;
     private int groupNumber;
-    private Collection<Student> students;
+    private Collection<Student> students =  new ArrayList<>();
 
     public Group(String title, int groupNumber) {
         this.title = title;
         this.groupNumber = groupNumber;
-        this.students = new ArrayList<>();
     }
 
     public void addStudent(Student student){

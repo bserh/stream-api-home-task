@@ -26,15 +26,15 @@ public class StatementService {
     }
 
     private void getGroups(){
-        for (Branch branch: data)
-            groups.addAll(branch.getGroups());
+        groups = data.stream()
+                .flatMap(branch -> branch.getGroups().stream())
+                .collect(Collectors.toList());
     }
 
     private List<Student> getAllStudents(){
-        List<Student> students = new ArrayList<>();
-        for (Group group: groups)
-            students.addAll(group.getStudents());
-        return students;
+        return groups.stream()
+                .flatMap(group -> group.getStudents().stream())
+                .collect(Collectors.toList());
     }
 
     public int getAmountOfGroupsWhereBadStudents() {

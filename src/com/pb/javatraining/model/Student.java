@@ -10,14 +10,13 @@ public class Student {
     private String surname;
     private int age;
     private State state;
-    private Map<Lesson, Double> marksByLessons;
+    private Map<Lesson, Double> marksByLessons = new HashMap<>();
 
     public Student(String name, String surname, int age, State state) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.state = state;
-        this.marksByLessons = new HashMap<>();
     }
 
     public void addMarkByLesson(Lesson lesson, double mark){

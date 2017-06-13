@@ -28,55 +28,76 @@ import static java.util.Collections.emptyList;
         Lesson linux = new Lesson("Linux",100);
 
         //students
-        Student petrov = new Student("Petro", "Petrov", 20, State.MALE);
+        Student petrov = new Student("Петя", "Петров", 20, State.MALE);
         petrov.addMarkByLesson(math,95);
         petrov.addMarkByLesson(history,90);
-        Student ivanov = new Student("Ivan", "Ivanov", 19, State.MALE);
+
+        Student ivanov = new Student("Иван", "Иванов", 19, State.MALE);
         ivanov.addMarkByLesson(math,50);
         ivanov.addMarkByLesson(oop,60);
-        Student kotov = new Student("Vasya","Kotov",20,State.MALE);
+
+        Student kotov = new Student("Василий","Котов",20,State.MALE);
         kotov.addMarkByLesson(math,70);
         kotov.addMarkByLesson(linux,100);
-        Student shatalina = new Student("Shatalina","Oksana",19,State.FEMALE);
-        List<Group> groups1 = new ArrayList<>();
+
+        Student shatalina = new Student("Шаталина","Оксана",19,State.FEMALE);
         shatalina.addMarkByLesson(math,100);
         shatalina.addMarkByLesson(linux,100);
         shatalina.addMarkByLesson(history,100);
+
+        Student jelo = new Student("Жело","Денис", 20, State.MALE);
+        jelo.addMarkByLesson(math,80);
+        jelo.addMarkByLesson(history,90);
+
+        Student misura = new Student("Мисюра","Денис", 20, State.MALE);
+        misura.addMarkByLesson(math,80);
+        misura.addMarkByLesson(history,90);
+
+        Student tcachenko = new Student("Ткаченко","Андрей", 21, State.MALE);
+        tcachenko.addMarkByLesson(oop,100);
+        tcachenko.addMarkByLesson(linux,100);
+
+        Student galstyan = new Student("Галстян","Эмма", 19, State.FEMALE);
+        galstyan.addMarkByLesson(math,80);
+        galstyan.addMarkByLesson(history,90);
+
+        Student kulik = new Student("Кулик", "Олексей", 20, State.MALE);
+        kulik.addMarkByLesson(oop,90);
+        kulik.addMarkByLesson(linux,94);
+        kulik.addMarkByLesson(history,100);
+        kulik.addMarkByLesson(math,95);
+
+
 
 
 
 
         Group group3141 = new Group("3141", 3141);
         group3141.addStudent(petrov);
+        group3141.addStudent(ivanov);
 
 
         Group group3142 = new Group("3142", 3142);
-
-        group3142.addStudent(ivanov);
-
-        groups1.add(group3141);
-        groups1.add(group3142);
-
+        group3142.addStudent(misura);
+        group3142.addStudent(jelo);
 
         Branch ikitn = new Branch("IKITN");
-        ikitn.setGroups(groups1);
+        ikitn.addGroup(group3141);
+        ikitn.addGroup(group3142);
 
-        List<Group> groups2 = new ArrayList<>();
 
         Group group3151 = new Group("3151",3151);
         group3151.addStudent(kotov);
-
         group3151.addStudent(shatalina);
+        group3151.addStudent(tcachenko);
 
-        groups2.add(group3151);
+        Group group3152 = new Group("3152",3152);
+        group3151.addStudent(galstyan);
+        group3151.addStudent(kulik);
 
         Branch bzas = new Branch("Bzas");
-        bzas.setGroups(groups2);
-
-
-        List<Group> groups3 = new ArrayList<>();
-        List<Group> groups4 = new ArrayList<>();
-
+        bzas.addGroup(group3151);
+        bzas.addGroup(group3152);
 
 
 

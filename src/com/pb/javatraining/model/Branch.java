@@ -7,11 +7,10 @@ import java.util.Objects;
 public class Branch {
 
     private String title;
-    private Collection<Group> groups;
+    private Collection<Group> groups = new ArrayList<>();
 
     public Branch(String title) {
         this.title = title;
-        this.groups = new ArrayList<>();
     }
 
     public void addGroup(Group group){

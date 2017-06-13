@@ -35,7 +35,6 @@ public class Application {
         Collection<String> studentFullNamesFromSpecifiedBranch = service.getStudentFullNamesFromSpecifiedBranch(branch);
 
         Collection<Student> studentsSuitableForArmy = service.getStudentsSuitableForArmy();
-
     }
 
 }
