@@ -2,7 +2,6 @@ package com.pb.javatraining.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class Student {
 
@@ -18,22 +17,6 @@ public class Student {
         this.age = age;
         this.state = state;
         marksByLessons = new HashMap<>();
-    }
-
-    public double averageMark() {
-       marksByLessons
-               .entrySet()
-               .stream()
-               .mapToDouble(Map.Entry::getValue)
-               .average()
-               .orElseThrow(()-> new RuntimeException("not marks in student"));
-
-       return marksByLessons
-               .entrySet()
-               .stream()
-               .mapToDouble(Map.Entry::getValue)
-               .average()
-               .getAsDouble();
     }
 
     public String getName() {
