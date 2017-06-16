@@ -1,80 +1,122 @@
 package com.pb.javatraining.service;
 
-import com.pb.javatraining.model.Branch;
-import com.pb.javatraining.model.Group;
-import com.pb.javatraining.model.Lesson;
-import com.pb.javatraining.model.Student;
+import com.pb.javatraining.model.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.emptySet;
+import static java.util.Collections.*;
 
 public class StatementService {
 
     private final Collection<Branch> data;
+    private List<Group> groups;
+    private List<Student> students;
 
     public StatementService() {
         DummyDataService dataService = new DummyDataService();
         this.data = dataService.getDummyData();
+
+        groups = data.stream().flatMap(branch -> branch.getGroups().stream()).collect(Collectors.toList());
     }
 
     public int getAmountOfGroupsWhereBadStudents() {
 
-        // TODO
+        return (int)groups.stream()
+                .flatMap(group -> group.getStudents().stream())
+                .flatMap(student -> student.getMarksByLessons().values().stream())
+                .filter(aDouble -> aDouble.doubleValue()<=3)
+                .count();
 
-        return 0;
     }
 
-    public Map<Group, Integer> getAverageMarksWithinGroups() {
+    public Map<Group, Double> getAverageMarksWithinGroups() {
 
-        // TODO
+        return groups.stream()
+                .collect(Collectors.toMap(group -> group, group2 -> group2
+                        .getStudents().stream()
+                        .mapToDouble(g -> g
+                                .getMarksByLessons()
+                                .values().stream()
+                                .mapToDouble(e -> e)
+                                .average()
+                                .getAsDouble())
+                        .average()
+                        .getAsDouble()));
 
-        return emptyMap();
     }
 
     public Collection<String> getGroupTitlesWhereStudentsAreMen() {
 
-        // TODO
+        return groups.stream()
+                .filter(group -> group
+                        .getStudents().stream()
+                        .allMatch(student -> student
+                                .getState() == State.MALE))
+                .map(Group::getTitle)
+                .collect(Collectors.toList());
 
-        return emptyList();
     }
 
     public Collection<String> getStudentFullNamesFromSpecifiedBranch(Branch branch) {
 
-        // TODO
+        return data.stream()
+                .filter(bran -> bran.getTitle().equals(branch.getTitle()))
+                .flatMap(branch1 -> branch1.getGroups().stream())
+                .flatMap(group -> group.getStudents().stream())
+                .map(student -> student.getName() + " " + student.getSurname())
+                .collect(Collectors.toList());
 
-        return emptyList();
     }
 
     public Map<Lesson, Double> getAverageMarksWithinLessons() {
 
-        // TODO
+        return getAllLessons().stream().collect(Collectors.toMap(lesson -> lesson, lesson -> groups.stream()
+                .flatMap(group -> group.getStudents().stream())
+                .flatMap(student -> student.getMarksByLessons().entrySet().stream())
+                .filter(lesson2 -> lesson2.getKey().equals(lesson))
+                .mapToDouble(value -> value.getValue())
+                .average()
+                .getAsDouble()));
 
-        return emptyMap();
     }
 
     public Collection<Student> getStudentsSuitableForArmy() {
 
-        // TODO
-
-        return emptyList();
+        return groups.stream()
+                .flatMap(group -> group.getStudents().stream()
+                        .filter(student -> student.getAge() >= 20))
+                .filter(student -> student.getState() == State.MALE)
+                .collect(Collectors.toList());
     }
 
     public Collection<Lesson> getAllLessons() {
 
-        // TODO
+        return groups.stream()
+                .flatMap(group -> group
+                        .getStudents().stream()
+                        .flatMap(student -> student
+                                .getMarksByLessons()
+                                .keySet().stream()))
+                .distinct()
+                .collect(Collectors.toList());
 
-        return emptySet();
     }
 
     public Collection<Group> getGroupsWhereAtLeastTwoExcelentStudents() {
 
-        // TODO
+        return groups.stream().peek(group -> group.getStudents().stream()
+                .filter(student -> student.getMarksByLessons().values().stream()
+                        .filter(value -> value.doubleValue() == 5)
+                        .mapToDouble(value -> value.doubleValue())
+                        .count() >= 2))
+                .collect(Collectors.toList());
 
-        return emptyList();
     }
 
 }

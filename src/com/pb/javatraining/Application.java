@@ -17,22 +17,29 @@ public class Application {
 
         // Get data to produce statement in further
         Collection<Lesson> allLessons = service.getAllLessons();
+        //System.out.println(allLessons);
 
         int amountOfGroupsWhereBadStudents = service.getAmountOfGroupsWhereBadStudents();
+        //System.out.println(amountOfGroupsWhereBadStudents);
 
-        Map<Group, Integer> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
+        Map<Group, Double> averageMarksWithinGroups = service.getAverageMarksWithinGroups();
+        //System.out.println(averageMarksWithinGroups.toString());
 
         Map<Lesson, Double> averageMarksWithinLessons = service.getAverageMarksWithinLessons();
+        //System.out.println(averageMarksWithinLessons);
 
         Collection<Group> groupsWhereAtLeastTwoExcelentStudents = service.getGroupsWhereAtLeastTwoExcelentStudents();
+        //System.out.println(groupsWhereAtLeastTwoExcelentStudents);
 
         Collection<String> groupTitlesWhereStudentsAreMen = service.getGroupTitlesWhereStudentsAreMen();
+        //System.out.println(groupTitlesWhereStudentsAreMen);
 
-        Branch branch = null; // TODO initialize your branch and pass it to #getStudentFullNamesFromSpecifiedBranch in afterwards
+        Branch branch = new Branch("Branch of economics and management");
         Collection<String> studentFullNamesFromSpecifiedBranch = service.getStudentFullNamesFromSpecifiedBranch(branch);
+        //System.out.println(studentFullNamesFromSpecifiedBranch);
 
         Collection<Student> studentsSuitableForArmy = service.getStudentsSuitableForArmy();
-
+        //System.out.println(studentsSuitableForArmy);
     }
 
 }
