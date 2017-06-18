@@ -4,10 +4,60 @@ import java.util.Collection;
 
 public class Group {
 
-    public String title;
-    public int groupNumber;
-    public Collection<Student> students;
+    private String title;
+    private int groupNumber;
+    private Collection<Student> students;
 
-    // TODO override equals
+    public Group(String title, int groupNumber, Collection<Student> students) {
+        this.title = title;
+        this.groupNumber = groupNumber;
+        this.students = students;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(int groupNumber) {
+        this.groupNumber = groupNumber;
+    }
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Group group = (Group) o;
+
+        return title.equals(group.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return title.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "title='" + title + '\'' +
+                ", groupNumber=" + groupNumber +
+                '}';
+    }
 }
